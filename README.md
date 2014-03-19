@@ -16,8 +16,9 @@ You must pass in the file name as parameter. The input files are located in the 
 
 ###Results expected
 The results will be printed out on the console and also, csv files will be created according to the input file thats being tested. 
-e.g: $ruby main.rb input.txt
-A **output1.csv** file will created in the /data folder
+e.g: **$ruby main.rb input.txt**
+
+A **output1.csv** file will created in the /data folder with the results expected.
 
 
 ###SALES TAXES
