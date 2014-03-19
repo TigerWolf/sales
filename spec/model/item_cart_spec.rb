@@ -7,5 +7,4 @@ describe ItemCart do
     item = ItemCart.new(hash, product)
     expect(item.price).to be(10.5)
   end
-
 end
