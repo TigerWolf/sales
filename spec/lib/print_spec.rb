@@ -1,26 +1,26 @@
 require 'spec_helper'
 
 describe Print do
-    it 'should print the cart do input1' do
-      cart = create_cart(Input.new("input1.txt"))
-      printer = Print.new(cart)
-      printer.print("Input 1")
-    end
-    it 'should print the cart do input2' do
-      cart = create_cart(Input.new("input2.txt"))
-      printer = Print.new(cart)
-      printer.print("Input 2")
-    end
-    it 'should print the cart do input3' do
-      cart = create_cart(Input.new("input3.txt"))
-      printer = Print.new(cart)
-      printer.print("Input 3")
-    end
+  subject(:cart) { create_cart(Input.new("input1.txt")) }
+  subject(:printer) { Print.new(cart) }
 
-    def create_cart(input)
-      cart = Cart.new
-      cart.create_cart(input.list_items)
-      cart.checkout
-      cart
-    end
+  it 'create the output_name file' do
+    output_file = printer.return_output_name("input1.txt")
+    expect(output_file).to eq("output1.csv")
+  end
+  it 'creates an output file' do
+    output_file = printer.create_output_file("input1.txt")
+    puts output_file.inspect
+    # expect(output_file.inspect).to include "./data/output"
+  end
+  it 'prints the output at the stdout' do
+    output_file = printer.create_output_file("input1.txt")
+    printer.print
+  end
+
+  def create_cart(input)
+    cart = Cart.new
+    cart.create_cart(input.list_items)
+    cart.checkout
+  end
 end

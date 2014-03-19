@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'csv'
 require_relative "../lib/input"
 require_relative "../lib/basic_tax"
 require_relative "../lib/print"

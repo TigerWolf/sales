@@ -1,20 +1,35 @@
 class Print
-  attr_accessor :cart
-  HEADING = "Quantity,Product,Price"
+  attr_accessor :cart, :output_name
+  HEADING = "Quantity|Product|Price"
   def initialize cart
     @cart = cart
   end
-
-  def print(input_name)
-    puts "================================="
-    puts "\n#{input_name}\n\n"
-    puts "================================="
-    puts HEADING
-    @cart.items_updated.each do |item_cart|
-      puts "#{item_cart.quantity}, #{item_cart.product.name},#{item_cart.price}"
+  def create_output_file(input_filename)
+    @output_name = return_output_name(input_filename)
+    output_number = @output_name.scan(/\d/).join()
+    CSV.open("./data/#{output_name}", "w") do |row|
+      row << []
+      row << ["Output #{output_number}"]
+      row << ["================================="]
+      row << [HEADING]
+      row << ["================================="]
+      @cart.items_updated.each do |item_cart|
+        row << ["#{item_cart.quantity}, #{item_cart.product.name},#{item_cart.price}"]
+      end
+      row << ["_________________________________"]
+      row << ["Sales Taxes: #{@cart.amount_sales_tax}"]
+      row << ["Total: #{@cart.total}"]
+      row << ["================================="]
+      row
     end
-    puts "\nSales Taxes: #{@cart.amount_sales_tax}"
-    puts "Total: #{@cart.total}"
-    puts "================================="
+  end
+  def print
+    CSV.foreach("./data/#{@output_name}") do |row|
+      puts row
+    end
+  end
+  def return_output_name(input_name)
+    output_name = input_name.sub('in', 'out')
+    output_name.sub('txt', 'csv')
   end
 end

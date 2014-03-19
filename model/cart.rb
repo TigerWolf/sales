@@ -29,5 +29,6 @@ class Cart
     @items.each do |ic|
       @total+= total_line_with_tax(ic)
     end
+    self
   end
 end
